@@ -19,6 +19,14 @@
             margin-bottom: 30px;
         }
         
+        .myForm {
+            
+        }
+        
+        .containermt5 {
+            margin-top: 20px;
+        }
+        
         .table td,
         .table th {
             color: white;
@@ -41,9 +49,27 @@
         Input Parameters:
     </h2>
     
-    <form id="myForm" action="/" method="POST">
-        <label for="userInput">Temp:</label>
-        <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="310">
+    <form class="myForm" action="/" method="POST">
+        <div>
+            <label for="userInput">Temperature (Kelvin):</label>
+            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="310">
+        </div>
+        <div>
+            <label for="userInput">RPM:</label>
+            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="100">
+        </div>
+        <div>
+            <label for="userInput">Growth Rate:</label>
+            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="10">
+        </div>
+        <div>
+            <label for="userInput">Medium Density:</label>
+            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="10">
+        </div>
+        <div>
+            <label for="userInput">Doublings:</label>
+            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="10">
+        </div>
         <button type="button" onclick="submitForm()">Submit</button>
     </form>
 
@@ -53,7 +79,7 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     
-    <div class="container mt-5">
+    <div class="containermt5">
         <h2>Simulation Output</h2>
         <table>
             {{ table|safe }}
