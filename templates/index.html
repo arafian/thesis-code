@@ -48,6 +48,7 @@
         
         .mt-5 {
             margin-top: 20px;
+            margin-bottom: 20px;
         }
         
         .table td,
@@ -99,10 +100,6 @@
         </form>
     </div>
 
-    <div id="resultContainer" style="display:none;">
-        <!-- Content to display after form submission -->
-    </div>
-
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     
     <div class="container mt-5">
@@ -112,5 +109,8 @@
         </table>
     </div>
 
+    <div id="resultContainer" style="display:none;">
+        <img src="{{ url_for('static', filename='../static/static_yield_graph.png') }}" id="staticImage">
+    </div>
 </body>
 </html>
