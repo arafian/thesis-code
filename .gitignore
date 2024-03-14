@@ -14,6 +14,9 @@ __pycache__
 *.png
 *.jpg
 
+# Ignore Jupyter checkpoints
+**/.ipynb_checkpoints/
+
 # Ignore all files starting with a dot (e.g., hidden files)
 .*
 
