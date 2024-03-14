@@ -21,7 +21,7 @@ function submitForm() {
                 if ('tableHtml' in response) {
                     // Update the result container
                     var resultContainer = document.getElementById("resultContainer");
-                    resultContainer.innerHTML = "You entered: " + inputTemp;
+                    //resultContainer.innerHTML = "You entered: " + inputTemp;
 
                     // Show the result container
                     resultContainer.style.display = "block";
