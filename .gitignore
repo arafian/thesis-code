@@ -1,8 +1,19 @@
-.py
+# Ignore Python files
+*.py
+
+# Ignore Python cache directory
 __pycache__
-.pem
-.log
-.png
-.jpg
+
+# Ignore PEM files
+*.pem
+
+# Ignore log files
+*.log
+
+# Ignore PNG and JPG image files
+*.png
+*.jpg
+
+# Ignore all files starting with a dot (e.g., hidden files)
 .*
 
