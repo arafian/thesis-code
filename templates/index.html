@@ -19,11 +19,11 @@
             margin-bottom: 30px;
         }
         
-        .myForm {
-            
+        input[type="number"] {
+            width: auto; /* Set width to adjust based on content */
         }
         
-        .containermt5 {
+        .mt-5 {
             margin-top: 20px;
         }
         
@@ -32,6 +32,7 @@
             color: white;
         }
         
+        /* Background */
         img {
             margin: auto;
             display: block; /* Ensures that margin:auto works */
@@ -52,23 +53,23 @@
     <form class="myForm" action="/" method="POST">
         <div>
             <label for="userInput">Temperature (Kelvin):</label>
-            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="310">
+            <input type="number" id="inputTemp" name="temp" min="10" max="500" step="1" value="310">
         </div>
         <div>
-            <label for="userInput">RPM:</label>
-            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="100">
+            <label for="inputRPM">RPM:</label>
+            <input type="number" id="inputRPM" name="rpm" min="10" max="500" step="1" value="42.3">
         </div>
         <div>
-            <label for="userInput">Growth Rate:</label>
-            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="10">
+            <label for="inputGrowthRate">Growth Rate:</label>
+            <input type="number" id="inputGrowthRate" name="growthRate" min="10" max="500" step="1" value="0.029">
         </div>
         <div>
-            <label for="userInput">Medium Density:</label>
-            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="10">
+            <label for="inputMediumDensity">Medium Density:</label>
+            <input type="number" id="inputMediumDensity" name="mediumDensity" min="10" max="500" step="1" value="1000">
         </div>
         <div>
-            <label for="userInput">Doublings:</label>
-            <input type="number" id="userInput" name="userInput" min="10" max="500" step="1" value="10">
+            <label for="inputDoublings">Doublings:</label>
+            <input type="number" id="inputDoublings" name="doublings" min="10" max="500" step="1" value="7">
         </div>
         <button type="button" onclick="submitForm()">Submit</button>
     </form>
@@ -79,7 +80,7 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     
-    <div class="containermt5">
+    <div class="container mt-5">
         <h2>Simulation Output</h2>
         <table>
             {{ table|safe }}

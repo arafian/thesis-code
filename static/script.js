@@ -1,8 +1,8 @@
 function submitForm() {
-    var userInput = document.getElementById("userInput").value;
-    userInput = parseInt(userInput);
+    var inputTemp = document.getElementById("inputTemp").value;
+    inputTemp = parseInt(inputTemp);
 
-    if (userInput < 10 || userInput > 500 || isNaN(userInput)) {
+    if (inputTemp < 10 || inputTemp > 500 || isNaN(inputTemp)) {
         alert("Please enter a valid value between 10 and 500.");
         return;
     }
@@ -21,7 +21,7 @@ function submitForm() {
                 if ('tableHtml' in response) {
                     // Update the result container
                     var resultContainer = document.getElementById("resultContainer");
-                    resultContainer.innerHTML = "You entered: " + userInput;
+                    resultContainer.innerHTML = "You entered: " + inputTemp;
 
                     // Show the result container
                     resultContainer.style.display = "block";
@@ -39,5 +39,5 @@ function submitForm() {
     };
 
     // Send the user input to the server
-    xhr.send("userInput=" + userInput);
+    xhr.send("inputTemp=" + inputTemp);
 }
