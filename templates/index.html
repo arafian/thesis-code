@@ -23,6 +23,29 @@
             width: auto; /* Set width to adjust based on content */
         }
         
+        .container {
+            text-align: center;
+        }
+
+        .left-align {
+            display: inline-block;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .form-group label {
+            flex: 0 0 200px; /* Adjust width of labels as needed */
+        }
+        .form-group input {
+            flex: 1;
+            min-width: 80px; /* Set a minimum width for the input */
+            margin-left: 10px; /* Adjust spacing between label and input as needed */
+        }
+        
         .mt-5 {
             margin-top: 20px;
         }
@@ -50,29 +73,31 @@
         Input Parameters:
     </h2>
     
-    <form class="myForm" action="/" method="POST">
-        <div>
-            <label for="userInput">Temperature (Kelvin):</label>
-            <input type="number" id="inputTemp" name="temp" min="10" max="500" step="1" value="310">
-        </div>
-        <div>
-            <label for="inputRPM">RPM:</label>
-            <input type="number" id="inputRPM" name="rpm" min="10" max="500" step="1" value="42.3">
-        </div>
-        <div>
-            <label for="inputGrowthRate">Growth Rate:</label>
-            <input type="number" id="inputGrowthRate" name="growthRate" min="10" max="500" step="1" value="0.029">
-        </div>
-        <div>
-            <label for="inputMediumDensity">Medium Density:</label>
-            <input type="number" id="inputMediumDensity" name="mediumDensity" min="10" max="500" step="1" value="1000">
-        </div>
-        <div>
-            <label for="inputDoublings">Doublings:</label>
-            <input type="number" id="inputDoublings" name="doublings" min="10" max="500" step="1" value="7">
-        </div>
-        <button type="button" onclick="submitForm()">Submit</button>
-    </form>
+    <div class="container">
+        <form class="left-align" action="/" method="POST">
+            <div class="form-group">
+                <label for="inputTemp">Temperature (Kelvin):</label>
+                <input type="number" id="inputTemp" name="temp" min="10" max="500" step="1" value="310">
+            </div>
+            <div class="form-group">
+                <label for="inputRPM">RPM:</label>
+                <input type="number" id="inputRPM" name="rpm" min="10" max="500" step="1" value="42.3">
+            </div>
+            <div class="form-group">
+                <label for="inputGrowthRate">Growth Rate:</label>
+                <input type="number" id="inputGrowthRate" name="growthRate" min="10" max="500" step="1" value="0.029">
+            </div>
+            <div class="form-group">
+                <label for="inputMediumDensity">Medium Density:</label>
+                <input type="number" id="inputMediumDensity" name="mediumDensity" min="10" max="500" step="1" value="1000">
+            </div>
+            <div class="form-group">
+                <label for="inputDoublings">Doublings:</label>
+                <input type="number" id="inputDoublings" name="doublings" min="10" max="500" step="1" value="7">
+            </div>
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+    </div>
 
     <div id="resultContainer" style="display:none;">
         <!-- Content to display after form submission -->
