@@ -1,6 +1,3 @@
-# Ignore Python files
-*.py
-
 # Ignore Python cache directory
 __pycache__
 
