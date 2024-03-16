@@ -1,11 +1,6 @@
 function submitForm() {
-    var inputTemp = document.getElementById("inputTemp").value;
-    inputTemp = parseInt(inputTemp);
-
-    if (inputTemp < 10 || inputTemp > 500 || isNaN(inputTemp)) {
-        alert("Please enter a valid value between 10 and 500.");
-        return;
-    }
+    var formData = new FormData(document.querySelector('form'));
+    var urlEncodedData = new URLSearchParams(formData).toString();
 
     // Send AJAX request to update the table
     var xhr = new XMLHttpRequest();
@@ -38,6 +33,6 @@ function submitForm() {
         }
     };
 
-    // Send the user input to the server
-    xhr.send("inputTemp=" + inputTemp);
+    // Send the form data to the server
+    xhr.send(urlEncodedData);
 }
