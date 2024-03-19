@@ -23,7 +23,7 @@
         input[type="number"] {
             width: auto; /* Set width to adjust based on content */
         }
-        
+
         .container {
             text-align: center;
         }
@@ -41,6 +41,7 @@
         .form-group label {
             flex: 0 0 200px; /* Adjust width of labels as needed */
         }
+        
         .form-group input {
             flex: 1;
             min-width: 80px; /* Set a minimum width for the input */
@@ -105,7 +106,7 @@
     
     <div class="container mt-5">
         <h2>Simulation Output</h2>
-        <table class="mx-auto">
+        <table class="table mx-auto" style="max-width: 50%;">
             {{ table|safe }}
         </table>
     </div>

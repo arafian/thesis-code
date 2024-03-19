@@ -15,17 +15,20 @@ function submitForm() {
                 // Check if the expected properties exist
                 if ('tableHtml' in response) {
                     // Update the result container
-                    console.log("REACHED TABLE")
                     var tableContainer = document.querySelector('.container.mt-5 table');
                     tableContainer.innerHTML = response.tableHtml;
+
+                    // Center-align table headers
+                    var tableHeaders = tableContainer.querySelectorAll('th');
+                    tableHeaders.forEach(function(header) {
+                        header.style.textAlign = 'center';
+                    });
                 } else {
                     console.error("Expected property 'tableHtml' not found in the JSON response.");
                 }
 
                 if ('graphData' in response) {
                     // Update the graph image
-                    console.log("REACHED GRAPH")
-                    console.log("Graph Data:", response.graphData);
                     var graphContainer = document.getElementById("graphContainer");
                     graphContainer.src = response.graphData;
                     graphContainer.style.display = "block";
