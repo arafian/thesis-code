@@ -18,11 +18,25 @@ function submitForm() {
                     var tableContainer = document.querySelector('.container.mt-5 table');
                     tableContainer.innerHTML = response.tableHtml;
 
-                    // Center-align table headers
+                    // Center-align table headers and set their text-align to center
                     var tableHeaders = tableContainer.querySelectorAll('th');
                     tableHeaders.forEach(function(header) {
                         header.style.textAlign = 'center';
                     });
+                    
+                    // Left-align Constraint column cells and adjust padding to align under the centered header
+                    var constraintHeader = tableContainer.querySelector('th:first-child');
+                    if (constraintHeader) {
+                        var headerWidth = constraintHeader.offsetWidth;
+                        var rows = tableContainer.querySelectorAll('tr');
+                        rows.forEach(function(row) {
+                            var firstCell = row.querySelector('td:first-child');
+                            if (firstCell) {
+                                firstCell.style.textAlign = 'left';
+                                firstCell.style.paddingLeft = (headerWidth / 2) + 'px';
+                            }
+                        });
+                    }
                 } else {
                     console.error("Expected property 'tableHtml' not found in the JSON response.");
                 }
