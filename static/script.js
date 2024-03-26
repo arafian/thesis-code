@@ -65,6 +65,12 @@ function updateUIWithResults(response) {
         // Update the table with the new results
         tableContainer.innerHTML = response.tableHtml;
 
+        // Capitalize the text in the table cells
+        var tableCells = tableContainer.querySelectorAll('th, td');
+        tableCells.forEach(function (cell) {
+            cell.classList.add('capitalize');
+        });
+        
         // Center-align table headers
         var tableHeaders = tableContainer.querySelectorAll('th');
         tableHeaders.forEach(function (header) {
