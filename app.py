@@ -9,7 +9,14 @@ from pymongo import MongoClient
 import pandas as pd
 import logging
 from IPython.display import display, HTML
+import base64
+import os
+import import_ipynb
 import pipeline
+from threading import Thread
+
+
+logging.getLogger('matplotlib.font_manager').disabled = True
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -20,7 +27,7 @@ handler.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 
 app = Flask(__name__)
-app.secret_key = '29e069cadd9173cb2efac4d0ebbbada31f519cae06b1f373'
+app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
 
 # Create a MongoDB client and connect to database
 client = MongoClient("mongodb://localhost:27017/")
@@ -99,21 +106,36 @@ def updateTable():
     documentCount = collection.count_documents(query)
     if documentCount > 0:
         logging.debug("Found %s documents", documentCount)
+        firstItem = collection.find_one(query)
+        outputsData = firstItem['outputs']
+        df = pd.DataFrame(outputsData.items(), columns=['Constraint', 'Maximum Yield [g/L wet]'])
+        tableHtml = df.to_html(classes='table table-striped', index=False)
+        
+        # Retrieve graphs
+        image_binary = firstItem['graph']
+        image_base64 = base64.b64encode(image_binary).decode('utf-8')
+        response_data = {
+            'tableHtml': tableHtml,
+            'graphData': 'data:image/png;base64,' + image_base64
+        }
+
+        return jsonify(response_data)
     else:
         logging.debug("No documents found with given params. Running simulation from scratch.")
-        pipeline.runSimAndInsert(inputs)
-        #return jsonify({'tableHtml': ''})
+        # Return a response indicating the simulation is starting
+        pipeline.simulation_complete = False
+        pipeline.table_html = None
+        pipeline.graph_data = None
 
-    firstItem = collection.find_one(query)
-    outputsData = firstItem['outputs']
-    df = pd.DataFrame(outputsData.items(), columns=['Constraint', 'Maximum Yield [g/L wet]'])
-    tableHtml = df.to_html(classes='table table-striped', index=False)
-    return jsonify({'tableHtml': tableHtml})
+        # Run the simulation asynchronously
+        Thread(target=pipeline.runSimAndInsert, args=(inputs,)).start()
+        return jsonify({'status': 'running'})
 
 def updateInput(inputs, inputID):
     name = inputID[0]
     _id = inputID[1]
-    userInput = request.form.get(_id)
+    userInput = request.form.get(name)
+    print(name, _id, userInput)
     logging.debug("User input is: %s", userInput)
     if userInput is not None:
         if userInput.isdigit():
@@ -143,6 +165,18 @@ def about():
 def clear_session_route():
     session.clear()
     return 'Session cleared'
+
+@app.route('/check-simulation-status')
+def check_simulation_status():
+    # Check the status of the simulation
+    if pipeline.simulation_complete:
+        # If the simulation is complete, retrieve the results
+        tableHtml = pipeline.get_table_html()
+        graphData = pipeline.get_graph_data()
+        return jsonify({'status': 'complete', 'tableHtml': tableHtml, 'graphData': graphData})
+    else:
+        # If the simulation is still running, return a response indicating that it's running
+        return jsonify({'status': 'running'})
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=False)
