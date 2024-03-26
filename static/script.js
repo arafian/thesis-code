@@ -71,6 +71,15 @@ function updateUIWithResults(response) {
             cell.classList.add('capitalize');
         });
         
+        // Round the numbers in the table cells to 3 decimal places
+        var tableCells = tableContainer.querySelectorAll('td');
+        tableCells.forEach(function (cell) {
+            var cellValue = parseFloat(cell.textContent);
+            if (!isNaN(cellValue)) {
+                cell.textContent = cellValue.toFixed(3);
+            }
+        });
+        
         // Center-align table headers
         var tableHeaders = tableContainer.querySelectorAll('th');
         tableHeaders.forEach(function (header) {
